@@ -16,7 +16,7 @@ def loans_register_routes(app, db):
         if not book:
             return jsonify({"error": "Invalid book name"}), 400
         # Check if the book is available
-        if book.available != "Available":
+        if book.status != "Available":
             return jsonify({"error": "This book is currently unavailable"}), 400
         try:
             loan_date_str = data.get('loanDate')   # Extract the loan date from the request
