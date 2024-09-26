@@ -2,7 +2,7 @@ from logging.handlers import RotatingFileHandler
 import os
 import subprocess
 import sys
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from books_functions import books_register_routes
 from customers_functions import customers_register_routes
@@ -34,15 +34,25 @@ customers_register_routes(app,db)
 loans_register_routes(app,db)
 admin_register_routes(app,db)
 
-# deletes all tables
-@app.route('/reset_table')
+@app.route('/reset_table', methods=['DELETE'])
 def table_delete():
-        # deletes all tables
-        db.drop_all()
-        # create all tables
+    # Delete all tables
+    db.drop_all()
+        
+
+@app.route('/seed_data')
+def defualt_data():
+    try:
+        # Recreate all tables
         db.create_all()
-        # instert data from seed_table_data into the tables
+
+        # Seed the tables with default data
         seed_data()
+        return jsonify({"message": "Tables reset and seeded successfully!"}), 200
+    except Exception as e:
+        # Log the error to server logs for debugging
+        app.logger.error(f"Error during table reset: {e}")
+        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
 
 if __name__=="__main__":
     with app.app_context():
