@@ -38,9 +38,13 @@ admin_register_routes(app,db)
 @app.route('/delete_tables', methods=['DELETE'])
 @jwt_required()  
 def table_delete():
-    with app.app_context():
+    try:
         db.drop_all()  
-    return jsonify({'message': 'All tables have been deleted!'}), 200
+        app.logger.info('All tables have been deleted!')
+        return jsonify({'message': 'All tables have been deleted!'}), 200
+    except Exception as e:
+        app.logger.error(f"Error delete tables: {str(e)}")
+        return jsonify({'error': 'Failed to delete tables please admin log in!'}), 500
 # This will create all tables and Seed the tables with data from seed_table_data
 @app.route('/seed_data', methods=['POST'])
 @jwt_required()  
@@ -51,7 +55,7 @@ def seed_all_data():
         return jsonify({'message': 'All tables data seeded successfully!'}), 201
     except Exception as e:
         app.logger.error(f"Error seeding data: {str(e)}")
-        return jsonify({'error': 'Failed to seed data'}), 500
+        return jsonify({'error': 'Failed to seed data please admin log in!'}), 500
 
 
 if __name__=="__main__":
