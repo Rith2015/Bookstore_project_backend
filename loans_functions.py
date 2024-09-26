@@ -40,7 +40,7 @@ def loans_register_routes(app, db):
                 status="Active"
             )
             db.session.add(new_loan)
-            book.available = "Unavailable"
+            book.status = "Unavailable"
             db.session.commit()
             app.logger.info({f"Loan was successfully added and {book.name} is now unavailable."})
             return jsonify({"message": f"Loan was successfully added and {book.name} is now unavailable!"}), 201 
@@ -95,7 +95,7 @@ def loans_register_routes(app, db):
         if not book:
             return jsonify({"error": "Invalid book name"}), 400
         # Check if the book is available
-        if book.available != "Unavailable":
+        if book.status != "Unavailable":
             return jsonify({"error": "This loan not found or book already been returned."}), 400
         try:
             # Find the existing loan where the book is currently loaned by the customer
@@ -104,7 +104,7 @@ def loans_register_routes(app, db):
                 return jsonify({"error": "No loan found for both this book and customer."}), 400
             db.session.delete(existing_loan)
             # Mark the book as available
-            book.available = "Available"
+            book.status = "Available"
             db.session.commit()
             app.logger.info({f"Loan was successfully returned, and {book.name} is now available!"})
             return jsonify({"message": f"Loan was successfully returned, and {book.name} is now available!"}), 200
@@ -126,7 +126,7 @@ def loans_register_routes(app, db):
             if not book:
                 return jsonify({"error": "Book not found!"}), 404
             # Mark the book as available
-            book.available = "Available"
+            book.status = "Available"
             # Delete the loan record
             db.session.delete(existing_loan)
             db.session.commit()
