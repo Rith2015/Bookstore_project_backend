@@ -42,6 +42,7 @@ def table_delete():
         # Seed the tables with default data
         seed_data()
 
+
 if __name__=="__main__":
     with app.app_context():
         db.create_all()

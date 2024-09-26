@@ -38,6 +38,7 @@ def customers_register_routes(app, db):
             return jsonify({"error": "Customer already exists!"}),500
     # delete customer from table by id
     @app.route('/del_customers/<int:id>',methods=['DELETE'])
+    @jwt_required()  
     def delete_customers(id):
         item=Customers.query.get(id)
         try:
@@ -49,7 +50,7 @@ def customers_register_routes(app, db):
         except Exception as e:
             db.session.rollback()
             app.logger.error(f"Error deleting customer {item}: {str(e)}")
-            return jsonify({"error": "Customer not found!"}),500
+            return jsonify({"error": "Customer not found or has a loan in his name!"}),500
 
     # update customer info in table by id
     @app.route('/edit_customers/<int:id>', methods=['PUT'])
