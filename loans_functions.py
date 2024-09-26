@@ -114,6 +114,7 @@ def loans_register_routes(app, db):
             return jsonify({"error": str(e)}), 500
     # deletes loan by id
     @app.route('/del_loan/<int:id>',methods=['DELETE'])
+    @jwt_required()  
     def del_loan(id):
         try:
             # Get the loan by ID
@@ -138,6 +139,7 @@ def loans_register_routes(app, db):
             return jsonify({"error": str(e)}), 500
      # update loan info in table by id
     @app.route('/edit_loans/<int:id>', methods=['PUT'])
+    @jwt_required()  
     def update_loans(id):
         data = request.json
         loan = Loans.query.get(id)
@@ -176,6 +178,7 @@ def loans_register_routes(app, db):
     
     # makes book be Unavailable
     @app.route('/loan_status_late/<int:id>',methods=['PUT'])
+    @jwt_required()  
     def late_loan(id):
         item=Loans.query.get(id)
         if item:
@@ -187,6 +190,7 @@ def loans_register_routes(app, db):
         
     # Make_books_available
     @app.route('/loan_status_active/<int:id>',methods=['PUT'])
+    @jwt_required()  
     def loan_status(id):
         item=Loans.query.get(id)
         if item:

@@ -52,7 +52,8 @@ def books_register_routes(app, db):
             app.logger.error(f"Error adding customer {data['name']}: {str(e)}")
             return jsonify({"error": f"Book was not added! Error: {str(e)}"}), 500
     # makes book be Unavailable
-    @app.route('/Make_books_Unavailable/<int:id>',methods=['Put'])
+    @app.route('/Make_books_Unavailable/<int:id>',methods=['PUT'])
+    @jwt_required()  
     def Unavailable_books(id):
         item=Books.query.get(id)
         if item:
@@ -64,6 +65,7 @@ def books_register_routes(app, db):
         
     # Make_books_available
     @app.route('/make_books_available/<int:id>',methods=['PUT'])
+    @jwt_required()  
     def available_books(id):
         item=Books.query.get(id)
         if item:
@@ -162,6 +164,6 @@ def books_register_routes(app, db):
         except Exception as e:
             db.session.rollback()
             app.logger.error(f"Error deleting book {item}: {str(e)}")
-            return jsonify({"error": f"Book {item} not found or in a loan!"}),500
+            return jsonify({"error": f"Book {item} is in a loan or please admin log in!"}),500
 
 
