@@ -34,7 +34,7 @@ customers_register_routes(app,db)
 loans_register_routes(app,db)
 admin_register_routes(app,db)
 
-@app.route('/reset_table', methods=['DELETE'])
+@app.route('/reset_table')
 def table_delete():
     # Delete all tables
     db.drop_all()
