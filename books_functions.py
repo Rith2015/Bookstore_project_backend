@@ -63,7 +63,7 @@ def books_register_routes(app, db):
             return jsonify({"message": "Book id not found!"}), 404
         
     # Make_books_available
-    @app.route('/make_books_available/<int:id>',methods=['Put'])
+    @app.route('/make_books_available/<int:id>',methods=['PUT'])
     def available_books(id):
         item=Books.query.get(id)
         if item:
