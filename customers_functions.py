@@ -38,7 +38,6 @@ def customers_register_routes(app, db):
             return jsonify({"error": "Customer already exists!"}),500
     # delete customer from table by id
     @app.route('/del_customers/<int:id>',methods=['DELETE'])
-    @jwt_required()  
     def delete_customers(id):
         item=Customers.query.get(id)
         try:

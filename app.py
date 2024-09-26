@@ -42,17 +42,6 @@ def table_delete():
         # Seed the tables with default data
         seed_data()
 
-@app.route('/seed_data')
-def defualt_data():
-    try:
-        # Recreate all tables
-
-        return jsonify({"message": "Tables reset and seeded successfully!"}), 200
-    except Exception as e:
-        # Log the error to server logs for debugging
-        app.logger.error(f"Error during table reset: {e}")
-        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
-
 if __name__=="__main__":
     with app.app_context():
         db.create_all()
