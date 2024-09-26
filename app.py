@@ -47,7 +47,6 @@ def table_delete():
         return jsonify({'error': 'Failed to delete tables please admin log in!'}), 500
 # This will create all tables and Seed the tables with data from seed_table_data
 @app.route('/seed_data', methods=['POST'])
-@jwt_required()  
 def seed_all_data():
     try:
         db.create_all()  
