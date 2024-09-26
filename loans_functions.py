@@ -175,23 +175,23 @@ def loans_register_routes(app, db):
         return jsonify(time_data), 200
     
     # makes book be Unavailable
-    @app.route('/loan_status_late/<int:id>',methods=['Put'])
+    @app.route('/loan_status_late/<int:id>',methods=['PUT'])
     def late_loan(id):
         item=Loans.query.get(id)
         if item:
             item.status="Late"
             db.session.commit()
-            return jsonify({'message': f'Book {item.name} has been marked as unavailable!'}), 200
+            return jsonify({'message': f'Loan status has been marked as late!'}), 200
         else:
-            return jsonify({"message": "Book id not found!"}), 404
+            return jsonify({"message": "Loan id not found!"}), 404
         
     # Make_books_available
-    @app.route('/loan_status_active/<int:id>',methods=['Put'])
+    @app.route('/loan_status_active/<int:id>',methods=['PUT'])
     def loan_status(id):
         item=Loans.query.get(id)
         if item:
             item.status="Active"
             db.session.commit()
-            return jsonify({'message': f'Book {item.name} has been marked as available!'}), 200
+            return jsonify({'message': f'Loan status has been marked as active!'}), 200
         else:
-            return jsonify({"message": "Book id not found!"}), 404 
+            return jsonify({"message": "Loan id not found!"}), 404
