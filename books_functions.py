@@ -88,7 +88,9 @@ def books_register_routes(app, db):
         loan_time_type_id = data.get('loan_time_type_id')
         if loan_time_type_id and not Loan_time.query.get(loan_time_type_id):
             return jsonify({"message": "Invalid loan time type ID!"}), 400
-
+        # Check if the book is available
+        if item.status != "Available":
+            return jsonify({"error": "This book is currently unavailable"}), 400
         # Update only fields that have new info in them
         if 'name' in data and data['name']:
             item.name = data['name']
