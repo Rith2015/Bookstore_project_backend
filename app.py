@@ -36,18 +36,17 @@ admin_register_routes(app,db)
 
 @app.route('/reset_table')
 def table_delete():
-    # Delete all tables
-    db.drop_all()
-        
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        # Seed the tables with default data
+        seed_data()
 
 @app.route('/seed_data')
 def defualt_data():
     try:
         # Recreate all tables
-        db.create_all()
 
-        # Seed the tables with default data
-        seed_data()
         return jsonify({"message": "Tables reset and seeded successfully!"}), 200
     except Exception as e:
         # Log the error to server logs for debugging
