@@ -50,7 +50,7 @@ def customers_register_routes(app, db):
         except Exception as e:
             db.session.rollback()
             app.logger.error(f"Error deleting customer {item}: {str(e)}")
-            return jsonify({"error": "Customer not found or has a loan in his name!"}),500
+            return jsonify({"error": f"Customer {item} not found or has a loan in his name!"}),500
 
     # update customer info in table by id
     @app.route('/edit_customers/<int:id>', methods=['PUT'])

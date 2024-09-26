@@ -33,18 +33,19 @@ books_register_routes(app, db)
 customers_register_routes(app,db)
 loans_register_routes(app,db)
 admin_register_routes(app,db)
-
-@app.route('/reset_table', methods=['DELETE'])
+# This will delete all tables 
+@app.route('/delete_tables', methods=['DELETE'])
 def table_delete():
     with app.app_context():
-        db.drop_all()  # This will drop all tables
+        db.drop_all()  
     return jsonify({'message': 'All tables have been deleted!'}), 200
+# This will create all tables and Seed the tables with data from seed_table_data
 @app.route('/seed_data', methods=['POST'])
 def seed_all_data():
     try:
-        db.create_all()  # Create all tables
-        seed_data()      # Seed the tables with default data
-        return jsonify({'message': 'Data seeded successfully!'}), 201
+        db.create_all()  
+        seed_data()
+        return jsonify({'message': 'All tables data seeded successfully!'}), 201
     except Exception as e:
         app.logger.error(f"Error seeding data: {str(e)}")
         return jsonify({'error': 'Failed to seed data'}), 500

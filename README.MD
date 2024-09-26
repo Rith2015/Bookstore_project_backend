@@ -39,7 +39,8 @@ pip install -r requirements.txt
 - Access the application at http://127.0.0.1:5000.
 # Endpoints
 ## App Endpoints
-- GET /reset_table: Reset the database and re-seed data with seed_data() and the data is in seed_table_data.
+- Delete /delete_tables: Deletes all tables in the database.
+- POST/seed_data: Create all tables and Seed the tables with data from seed_table_data.
 ## Books Endpoints
 - GET/books: Shows all books.
 - POST/add_books: Add new books.

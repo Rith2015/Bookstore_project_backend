@@ -162,6 +162,6 @@ def books_register_routes(app, db):
         except Exception as e:
             db.session.rollback()
             app.logger.error(f"Error deleting book {item}: {str(e)}")
-            return jsonify({"error": "Book not found or in a loan!"}),500
+            return jsonify({"error": f"Book {item} not found or in a loan!"}),500
 
 
