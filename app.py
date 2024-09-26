@@ -4,6 +4,7 @@ import subprocess
 import sys
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flask_jwt_extended import jwt_required
 from books_functions import books_register_routes
 from customers_functions import customers_register_routes
 from loans_functions import loans_register_routes
@@ -35,12 +36,14 @@ loans_register_routes(app,db)
 admin_register_routes(app,db)
 # This will delete all tables 
 @app.route('/delete_tables', methods=['DELETE'])
+@jwt_required()  
 def table_delete():
     with app.app_context():
         db.drop_all()  
     return jsonify({'message': 'All tables have been deleted!'}), 200
 # This will create all tables and Seed the tables with data from seed_table_data
 @app.route('/seed_data', methods=['POST'])
+@jwt_required()  
 def seed_all_data():
     try:
         db.create_all()  
