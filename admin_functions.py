@@ -2,10 +2,9 @@ import datetime
 from functools import wraps
 import time
 from flask import jsonify, request
-import jwt
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
-from models import Admin_users,Books,Loan_time
+from models import Admin_users
 bcrypt = Bcrypt()
 
 def admin_register_routes(app, db):
@@ -60,6 +59,7 @@ def admin_register_routes(app, db):
             return jsonify({'message': 'Invalid username or password'}), 401
     # create new admin users
     @app.route('/register', methods=['POST'])
+    @jwt_required()  
     def register():
         data = request.json
         username = data['username']

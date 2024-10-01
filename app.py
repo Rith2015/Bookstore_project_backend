@@ -1,7 +1,4 @@
 from logging.handlers import RotatingFileHandler
-import os
-import subprocess
-import sys
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required
@@ -23,7 +20,7 @@ db.init_app(app)
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 file_handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=1)
-file_handler.setLevel(logging.DEBUG)  # Adjust this level to what you need
+file_handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
