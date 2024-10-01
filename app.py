@@ -31,6 +31,21 @@ books_register_routes(app, db)
 customers_register_routes(app,db)
 loans_register_routes(app,db)
 admin_register_routes(app,db)
+
+@app.route('/')
+def index():
+    print("""Get endpoint for Bookstore:
+    ## Books Endpoints
+- GET/books: Shows all books.
+- GET/search_books: Search books by book name.
+- GET/search_author: Search books by author.
+## Customers Endpoints
+- GET/customers: Shows all customers.
+- GET/search_customer: Search customers by book name.
+## Loan Endpoints
+- GET /show_loans: Show all loans.
+- GET /show_late_loans: Show loans with status 'Late'.
+- GET/loan_time: Shows all loan time types info""")
 # This will delete all tables 
 @app.route('/delete_tables', methods=['DELETE'])
 @jwt_required()  
