@@ -35,22 +35,17 @@ admin_register_routes(app,db)
 @app.route('/')
 def index():
  return """
-    <h2>Get endpoint for Bookstore:</h2>
-    <h3>Books Endpoints</h3>
+    <h3>All Books Endpoints are in the read me file, some are:</h3>
     <ul>
         <li>GET /books: Shows all books.</li>
-        <li>GET /search_books: Search books by book name.</li>
-        <li>GET /search_author: Search books by author.</li>
     </ul>
     <h3>Customers Endpoints</h3>
     <ul>
         <li>GET /customers: Shows all customers.</li>
-        <li>GET /search_customer: Search customers by book name.</li>
     </ul>
     <h3>Loan Endpoints</h3>
     <ul>
         <li>GET /show_loans: Show all loans.</li>
-        <li>GET /show_late_loans: Show loans with status 'Late'.</li>
         <li>GET /loan_time: Shows all loan time types info.</li>
     </ul>
     """, 200
